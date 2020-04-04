@@ -3,11 +3,14 @@ namespace alvaro.Documentos.Patterns.Patterns.Creationals
     public class Singleton
     {
         private Singleton oSingletonInstance;
+        //Shared memory
         private volatile Singleton oSingletonSynchronizedInstance;
+        //Eagerly way
+        private Singleton oEagerlySingleton = new Singleton();
 
         private Singleton();
 
-        //Simple implementation whithout tread safe care taken.
+        //Simple implementation whithout thread safe care taken.
         public static Singleton GetSingletonInstance()
         {
             if(oSingletonInstance == null){
@@ -16,7 +19,7 @@ namespace alvaro.Documentos.Patterns.Patterns.Creationals
             return this.oSingletonInstance;
         }
 
-        //Simple synchrinized methods without performance care
+        //Simple synchronized methods without performance care
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static Singleton GetSynchronizedSingletonInstance()
         {
@@ -26,7 +29,7 @@ namespace alvaro.Documentos.Patterns.Patterns.Creationals
             return this.oSingletonSynchronizedInstance;
         }
 
-        //Double check implementation whith tread safe care and performance taken.
+        //Double check implementation whith thread safe and performance care taken.
         public static Singleton GetSingletonInstance()
         {
             if(oSingletonInstance == null)
@@ -40,6 +43,11 @@ namespace alvaro.Documentos.Patterns.Patterns.Creationals
                 }
             }
             return this.oSingletonInstance;
+        }
+
+        //Eagerly Inicialization. It is charged on memory from the start of the program
+        public static Singleton GetEagerlySingleton(){
+            return this.oEagerlySingleton;
         }
     }
 }
